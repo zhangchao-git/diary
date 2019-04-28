@@ -137,6 +137,7 @@
         var currentYear = new Date().getFullYear();
 
         $('#calendar').calendar({
+            style:'background',
             enableContextMenu: true,
             enableRangeSelection: true,
             contextMenuItems: [
@@ -186,6 +187,7 @@
                     id: 0,
                     name: 'Google I/O',
                     location: 'San Francisco, CA',
+                    color: 'red',
                     startDate: new Date(currentYear, 4, 28),
                     endDate: new Date(currentYear, 4, 29)
                 },
@@ -193,6 +195,7 @@
                     id: 1,
                     name: 'Microsoft Convergence',
                     location: 'New Orleans, LA',
+                    color: 'pink',
                     startDate: new Date(currentYear, 2, 16),
                     endDate: new Date(currentYear, 2, 19)
                 },

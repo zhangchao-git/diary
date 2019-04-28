@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日历</title>
+    <link rel="stylesheet" type="text/css" href="./bootstrap-4.3.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="./css/default.css">
+    <link rel="stylesheet" type="text/css" href="./bootstrap-4.3.1/css/bootstrap-year-calendar.min.css">
+    <script type="text/javascript" src="./js/jquery-3.4.0.min.js"></script>
+    <script type="text/javascript" src="./bootstrap-4.3.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="./bootstrap-4.3.1/js/bootstrap-year-calendar.min.js"></script>
+</head>
+<body>
+
+<div id="calendar"></div>
+
+</body>
+
+<script>
+    $(function () {
+        $('#calendar').calendar({
+            enableRangeSelection: true,
+            renderEnd: function (e) {
+                if ($('#render-end').prop('checked')) {
+                    $('#logs').append('<div class="render-end" style="color:#1C7C26">Render end (' + e.currentYear + ')</div');
+                    refreshLog();
+                }
+            },
+            renderDay: function (e) {
+                if ($('#render-day').prop('checked')) {
+                    $('#logs').append('<div class="render-day" style="color:#FF5B9D">Render day (' + e.date.toLocaleDateString() + ')</div');
+                    refreshLog();
+                }
+            },
+            clickDay: function (e) {
+                if ($('#click').prop('checked')) {
+                    $('#logs').append('<div class="click" style="color:#1F80C1">Click (' + e.date.toLocaleDateString() + ')</div');
+                    refreshLog();
+                }
+            },
+            dayContextMenu: function (e) {
+                if ($('#contextmenu').prop('checked')) {
+                    $('#logs').append('<div class="contextmenu" style="color:#9D29B2">Context menu (' + e.date.toLocaleDateString() + ')</div');
+                    refreshLog();
+                }
+            },
+            selectRange: function (e) {
+                if ($('#range').prop('checked')) {
+                    $('#logs').append('<div class="range" style="color:#34A522">Select range (' + e.startDate.toLocaleDateString() + ' -> ' + e.endDate.toLocaleDateString() + ')</div');
+                    refreshLog();
+                }
+            },
+            mouseOnDay: function (e) {
+                if ($('#mouse-on').prop('checked')) {
+                    $('#logs').append('<div class="mouse-on" style="color:#F95902">Mouse on (' + e.date.toLocaleDateString() + ')</div');
+                    refreshLog();
+                }
+            },
+            mouseOutDay: function (e) {
+                if ($('#mouse-out').prop('checked')) {
+                    $('#logs').append('<div class="mouse-out" style="color:#F90202">Mouse out (' + e.date.toLocaleDateString() + ')</div');
+                    refreshLog();
+                }
+            },
+            dataSource: [
+                {
+                    startDate: new Date(new Date().getFullYear(), 1, 4),
+                    endDate: new Date(new Date().getFullYear(), 1, 15)
+                },
+                {
+                    startDate: new Date(new Date().getFullYear(), 3, 5),
+                    endDate: new Date(new Date().getFullYear(), 5, 15)
+                }
+            ]
+        });
+
+        $('.log-display').click(function () {
+            refreshLog();
+        });
+    });
+
+    function refreshLog() {
+        $("#logs").scrollTop($("#logs")[0].scrollHeight);
+
+    }
+</script>
+</html>

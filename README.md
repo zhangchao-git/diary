@@ -4,5 +4,6 @@
    - SpringBoot
    - Mybatis
    - MySql
+   - 七牛云
 ##### 前端   
    - bootstrap

@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.zhang.diary.dao.DiaryDAO">
+    <resultMap id="BaseResultMap" type="cn.zhang.diary.model.Diary">
+        <constructor>
+            <arg column="id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+            <arg column="userId" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+            <arg column="date" jdbcType="DATE" javaType="java.util.Date"/>
+            <arg column="weather" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="mood" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="keywords" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="longitude" jdbcType="DOUBLE" javaType="java.lang.Double"/>
+            <arg column="latitude" jdbcType="DOUBLE" javaType="java.lang.Double"/>
+            <arg column="address" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="type" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="content" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+            <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, userId, date, weather, mood, keywords, longitude, latitude, address, type, content,
+    create_time, update_time
+    </sql>
+
+    <insert id="insert" parameterType="cn.zhang.diary.model.Diary" useGeneratedKeys="true" keyProperty="id">
+        insert into diary
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="userId != null">
+                userId,
+            </if>
+            <if test="date != null">
+                date,
+            </if>
+            <if test="weather != null">
+                weather,
+            </if>
+            <if test="mood != null">
+                mood,
+            </if>
+            <if test="keywords != null">
+                keywords,
+            </if>
+            <if test="longitude != null">
+                longitude,
+            </if>
+            <if test="latitude != null">
+                latitude,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="date != null">
+                #{date,jdbcType=DATE},
+            </if>
+            <if test="weather != null">
+                #{weather,jdbcType=VARCHAR},
+            </if>
+            <if test="mood != null">
+                #{mood,jdbcType=VARCHAR},
+            </if>
+            <if test="keywords != null">
+                #{keywords,jdbcType=VARCHAR},
+            </if>
+            <if test="longitude != null">
+                #{longitude,jdbcType=DOUBLE},
+            </if>
+            <if test="latitude != null">
+                #{latitude,jdbcType=DOUBLE},
+            </if>
+            <if test="address != null">
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="content != null">
+                #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <delete id="deleteById" parameterType="cn.zhang.diary.model.Diary">
+        delete from diary
+        where id = #{id}
+    </delete>
+
+    <select id="selectByDiary" resultMap="BaseResultMap" parameterType="cn.zhang.diary.model.Diary">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from diary
+        <where>
+            <if test="id != null">
+                and id = #{id,jdbcType=INTEGER}
+            </if>
+            <if test="userId != null">
+                and userId = #{userId,jdbcType=INTEGER}
+            </if>
+            <if test="date != null">
+                and date = #{date,jdbcType=DATE}
+            </if>
+            <if test="weather != null">
+                and weather = #{weather,jdbcType=VARCHAR}
+            </if>
+            <if test="mood != null">
+                and mood = #{mood,jdbcType=VARCHAR}
+            </if>
+            <if test="keywords != null">
+                and keywords = #{keywords,jdbcType=VARCHAR}
+            </if>
+            <if test="longitude != null">
+                and longitude = #{longitude,jdbcType=DOUBLE}
+            </if>
+            <if test="latitude != null">
+                and latitude = #{latitude,jdbcType=DOUBLE}
+            </if>
+            <if test="address != null">
+                and address = #{address,jdbcType=VARCHAR}
+            </if>
+            <if test="type != null">
+                and type = #{type,jdbcType=VARCHAR}
+            </if>
+            <if test="content != null">
+                and content = #{content,jdbcType=VARCHAR}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime,jdbcType=TIMESTAMP}
+            </if>
+        </where>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+
+    <update id="updateById" parameterType="map">
+        update diary
+        <set>
+            <if test="record.id != null">
+                id = #{record.id,jdbcType=INTEGER},
+            </if>
+            <if test="record.userid != null">
+                userId = #{record.userid,jdbcType=INTEGER},
+            </if>
+            <if test="record.date != null">
+                date = #{record.date,jdbcType=DATE},
+            </if>
+            <if test="record.weather != null">
+                weather = #{record.weather,jdbcType=VARCHAR},
+            </if>
+            <if test="record.mood != null">
+                mood = #{record.mood,jdbcType=VARCHAR},
+            </if>
+            <if test="record.keywords != null">
+                keywords = #{record.keywords,jdbcType=VARCHAR},
+            </if>
+            <if test="record.longitude != null">
+                longitude = #{record.longitude,jdbcType=DOUBLE},
+            </if>
+            <if test="record.latitude != null">
+                latitude = #{record.latitude,jdbcType=DOUBLE},
+            </if>
+            <if test="record.address != null">
+                address = #{record.address,jdbcType=VARCHAR},
+            </if>
+            <if test="record.type != null">
+                type = #{record.type,jdbcType=VARCHAR},
+            </if>
+            <if test="record.content != null">
+                content = #{record.content,jdbcType=VARCHAR},
+            </if>
+            <if test="record.createTime != null">
+                create_time = #{record.createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.updateTime != null">
+                update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+</mapper>

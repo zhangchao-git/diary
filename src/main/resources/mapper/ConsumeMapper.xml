@@ -114,7 +114,7 @@
         </if>
     </select>
 
-    <update id="updateById" parameterType="map">
+    <update id="updateById" parameterType="cn.zhang.diary.model.Diary">
         update consume
         <set>
             <if test="diaryId != null">

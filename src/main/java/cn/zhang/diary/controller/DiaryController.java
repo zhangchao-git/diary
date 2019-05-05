@@ -57,7 +57,7 @@ public class DiaryController {
     public Result add(HttpServletRequest request, Diary diary) {
         String id = request.getSession().getAttribute("id").toString();
         diary.setUserId(Long.parseLong(id));
-        if (null != id) {
+        if (null != diary.getId()) {
             diaryService.update(diary);
         } else {
             diaryService.add(diary);

@@ -22,7 +22,7 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-    id, userId, date(date) as date, weather, mood, keywords, longitude, latitude, address, type, content,
+    id, userId, date, weather, mood, keywords, longitude, latitude, address, type, content,
     create_time, update_time
     </sql>
 
@@ -165,47 +165,47 @@
             order by date desc
     </select>
 
-    <update id="updateById" parameterType="map">
+    <update id="updateById" parameterType="cn.zhang.diary.model.Diary">
         update diary
         <set>
-            <if test="record.id != null">
-                id = #{record.id,jdbcType=INTEGER},
+            <if test="id != null">
+                id = #{id,jdbcType=INTEGER},
             </if>
-            <if test="record.userid != null">
-                userId = #{record.userid,jdbcType=INTEGER},
+            <if test="userId != null">
+                userId = #{userId,jdbcType=INTEGER},
             </if>
-            <if test="record.date != null">
-                date = #{record.date,jdbcType=DATE},
+            <if test="date != null">
+                date = #{date,jdbcType=DATE},
             </if>
-            <if test="record.weather != null">
-                weather = #{record.weather,jdbcType=VARCHAR},
+            <if test="weather != null">
+                weather = #{weather,jdbcType=VARCHAR},
             </if>
-            <if test="record.mood != null">
-                mood = #{record.mood,jdbcType=VARCHAR},
+            <if test="mood != null">
+                mood = #{mood,jdbcType=VARCHAR},
             </if>
-            <if test="record.keywords != null">
-                keywords = #{record.keywords,jdbcType=VARCHAR},
+            <if test="keywords != null">
+                keywords = #{keywords,jdbcType=VARCHAR},
             </if>
-            <if test="record.longitude != null">
-                longitude = #{record.longitude,jdbcType=DOUBLE},
+            <if test="longitude != null">
+                longitude = #{longitude,jdbcType=DOUBLE},
             </if>
-            <if test="record.latitude != null">
-                latitude = #{record.latitude,jdbcType=DOUBLE},
+            <if test="latitude != null">
+                latitude = #{latitude,jdbcType=DOUBLE},
             </if>
-            <if test="record.address != null">
-                address = #{record.address,jdbcType=VARCHAR},
+            <if test="address != null">
+                address = #{address,jdbcType=VARCHAR},
             </if>
-            <if test="record.type != null">
-                type = #{record.type,jdbcType=VARCHAR},
+            <if test="type != null">
+                type = #{type,jdbcType=VARCHAR},
             </if>
-            <if test="record.content != null">
-                content = #{record.content,jdbcType=VARCHAR},
+            <if test="content != null">
+                content = #{content,jdbcType=VARCHAR},
             </if>
-            <if test="record.createTime != null">
-                create_time = #{record.createTime,jdbcType=TIMESTAMP},
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
             </if>
-            <if test="record.updateTime != null">
-                update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
             </if>
         </set>
         where id = #{id}

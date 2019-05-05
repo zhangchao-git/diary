@@ -16,5 +16,5 @@ public interface DiaryDAO {
 
     List<Diary> selectByDiary(DiaryDTO diaryDTO);
 
-    int updateById(Diary record);
+    int updateById(Diary diary);
 }

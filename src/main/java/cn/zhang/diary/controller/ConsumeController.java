@@ -46,4 +46,24 @@ public class ConsumeController {
         }
         return result;
     }
+
+    /**
+     * 查询列表
+     *
+     * @return
+     */
+    @RequestMapping("/queryById")
+    @ResponseBody
+    public Result queryById(Long id) {
+        Result result = new Result();
+        Consume consume = new Consume();
+        consume.setId(id);
+        List<Consume> list = consumeService.queryList(consume);
+        if (list.size() > 0) {
+            result.addObject("list", list);
+        } else {
+            result.addObject("list", null);
+        }
+        return result;
+    }
 }

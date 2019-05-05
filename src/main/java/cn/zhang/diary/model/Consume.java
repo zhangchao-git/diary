@@ -14,11 +14,11 @@ public class Consume {
     /**
      * 主键
      */
-    private Integer id;
+    private Long id;
     /**
      * 记录ID
      */
-    private Integer diaryId;
+    private Long diaryId;
 
     /**
      * 类型 收入/支出

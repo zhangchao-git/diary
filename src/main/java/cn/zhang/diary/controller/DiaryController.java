@@ -45,6 +45,47 @@ public class DiaryController {
         return result;
     }
 
+    /**
+     * 新增日记
+     *
+     * @param request
+     * @param diary
+     * @return
+     */
+    @RequestMapping("/add")
+    @ResponseBody
+    public Result add(HttpServletRequest request, Diary diary) {
+        String id = request.getSession().getAttribute("id").toString();
+        diary.setUserId(Long.parseLong(id));
+        if (null != id) {
+            diaryService.update(diary);
+        } else {
+            diaryService.add(diary);
+        }
+        Result result = new Result();
+        return result;
+    }
+
+    /**
+     * 查询一个日记
+     *
+     * @return
+     */
+    @RequestMapping("/queryById")
+    @ResponseBody
+    public Result add(Long id) {
+        DiaryDTO diaryDTO = new DiaryDTO();
+        diaryDTO.setId(id);
+        List<Diary> list = diaryService.queryList(diaryDTO);
+        Result result = new Result();
+        if (list.size() > 0) {
+            Diary diary = list.get(0);
+            result.addObject("diary", diary);
+        } else {
+            result.addObject("diary", null);
+        }
+        return result;
+    }
 
 
 }

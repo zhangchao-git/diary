@@ -20,4 +20,20 @@ public interface DiaryService {
      * @return
      */
     List<Diary> queryList(DiaryDTO diaryDTO);
+
+    /**
+     * 增加日记
+     *
+     * @param diary
+     * @return
+     */
+    int add(Diary diary);
+
+    /**
+     * 更新日记
+     *
+     * @param diary
+     * @return
+     */
+    int update(Diary diary);
 }

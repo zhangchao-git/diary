@@ -7,6 +7,7 @@ import cn.zhang.diary.service.DiaryService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -34,5 +35,29 @@ public class DiaryServiceImpl implements DiaryService {
     public List<Diary> queryList(DiaryDTO diaryDTO) {
         List<Diary> list = diaryDAO.selectByDiary(diaryDTO);
         return list;
+    }
+
+    /**
+     * 新增日记
+     *
+     * @param diary
+     * @return
+     */
+    @Override
+    public int add(Diary diary) {
+        diary.setCreateTime(new Date());
+        diary.setUpdateTime(new Date());
+        return diaryDAO.insert(diary);
+    }
+
+    /**
+     * 更新日记
+     *
+     * @param diary
+     * @return
+     */
+    @Override
+    public int update(Diary diary) {
+        return diaryDAO.updateById(diary);
     }
 }

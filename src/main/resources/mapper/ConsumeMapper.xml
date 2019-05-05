@@ -2,17 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.zhang.diary.dao.ConsumeDAO">
     <resultMap id="BaseResultMap" type="cn.zhang.diary.model.Consume">
-        <constructor>
-            <arg column="id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
-            <arg column="diaryId" jdbcType="INTEGER" javaType="java.lang.Integer"/>
-            <arg column="type" jdbcType="INTEGER" javaType="java.lang.Integer"/>
-            <arg column="path" jdbcType="VARCHAR" javaType="java.lang.String"/>
-            <arg column="amount" jdbcType="DOUBLE" javaType="java.lang.Double"/>
-            <arg column="remark" jdbcType="VARCHAR" javaType="java.lang.String"/>
-            <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
-            <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
-        </constructor>
-
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="diaryId" property="diaryId" jdbcType="INTEGER" />
+        <result column="type" property="type" jdbcType="INTEGER" />
+        <result column="path" property="path" jdbcType="VARCHAR" />
+        <result column="amount" property="amount" jdbcType="DOUBLE" />
+        <result column="remark" property="remark" jdbcType="VARCHAR" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     </resultMap>
 
     <sql id="Base_Column_List">

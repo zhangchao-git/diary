@@ -19,12 +19,12 @@ public class Diary {
     /**
      * 用户ID
      */
-    private Integer userId;
+    private Long userId;
 
     /**
      * 日期
      */
-    private Date date;
+    private String date;
 
     /**
      * 天气

@@ -1,25 +1,28 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
 <mapper namespace="cn.zhang.diary.dao.DiaryDAO">
+
     <resultMap id="BaseResultMap" type="cn.zhang.diary.model.Diary">
-        <constructor>
-            <arg column="id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
-            <arg column="userId" jdbcType="INTEGER" javaType="java.lang.Integer"/>
-            <arg column="date" jdbcType="DATE" javaType="java.util.Date"/>
-            <arg column="weather" jdbcType="VARCHAR" javaType="java.lang.String"/>
-            <arg column="mood" jdbcType="VARCHAR" javaType="java.lang.String"/>
-            <arg column="keywords" jdbcType="VARCHAR" javaType="java.lang.String"/>
-            <arg column="longitude" jdbcType="DOUBLE" javaType="java.lang.Double"/>
-            <arg column="latitude" jdbcType="DOUBLE" javaType="java.lang.Double"/>
-            <arg column="address" jdbcType="VARCHAR" javaType="java.lang.String"/>
-            <arg column="type" jdbcType="VARCHAR" javaType="java.lang.String"/>
-            <arg column="content" jdbcType="VARCHAR" javaType="java.lang.String"/>
-            <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
-            <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
-        </constructor>
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="userId" property="userId" jdbcType="INTEGER" />
+        <result column="date" property="date" jdbcType="DATE" />
+        <result column="weather" property="weather" jdbcType="VARCHAR" />
+        <result column="mood" property="mood" jdbcType="VARCHAR" />
+        <result column="keywords" property="keywords" jdbcType="VARCHAR" />
+        <result column="longitude" property="longitude" jdbcType="DOUBLE" />
+        <result column="latitude" property="latitude" jdbcType="DOUBLE" />
+        <result column="address" property="address" jdbcType="VARCHAR" />
+        <result column="type" property="type" jdbcType="VARCHAR" />
+        <result column="content" property="content" jdbcType="VARCHAR" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     </resultMap>
+
     <sql id="Base_Column_List">
-    id, userId, date, weather, mood, keywords, longitude, latitude, address, type, content,
+    id, userId, date(date) as date, weather, mood, keywords, longitude, latitude, address, type, content,
     create_time, update_time
     </sql>
 
@@ -114,57 +117,52 @@
         where id = #{id}
     </delete>
 
-    <select id="selectByDiary" resultMap="BaseResultMap" parameterType="cn.zhang.diary.model.Diary">
+    <select id="selectByDiary" resultMap="BaseResultMap" parameterType="cn.zhang.diary.dto.DiaryDTO">
         select
-        <if test="distinct">
-            distinct
-        </if>
         <include refid="Base_Column_List"/>
         from diary
         <where>
             <if test="id != null">
-                and id = #{id,jdbcType=INTEGER}
+                and id = #{id}
             </if>
             <if test="userId != null">
-                and userId = #{userId,jdbcType=INTEGER}
+                and userId = #{userId}
             </if>
             <if test="date != null">
-                and date = #{date,jdbcType=DATE}
+                and date = #{date}
             </if>
             <if test="weather != null">
-                and weather = #{weather,jdbcType=VARCHAR}
+                and weather = #{weather}
             </if>
             <if test="mood != null">
-                and mood = #{mood,jdbcType=VARCHAR}
+                and mood = #{mood}
             </if>
-            <if test="keywords != null">
-                and keywords = #{keywords,jdbcType=VARCHAR}
+            <if test="keywords != null and keywords != ''">
+                and keywords = #{keywords}
             </if>
             <if test="longitude != null">
-                and longitude = #{longitude,jdbcType=DOUBLE}
+                and longitude = #{longitude}
             </if>
             <if test="latitude != null">
-                and latitude = #{latitude,jdbcType=DOUBLE}
+                and latitude = #{latitude}
             </if>
-            <if test="address != null">
-                and address = #{address,jdbcType=VARCHAR}
+            <if test="address != null and address !=''">
+                and address = #{address}
             </if>
             <if test="type != null">
-                and type = #{type,jdbcType=VARCHAR}
+                and type = #{type}
             </if>
             <if test="content != null">
-                and content = #{content,jdbcType=VARCHAR}
+                and content = #{content}
             </if>
             <if test="createTime != null">
-                and create_time = #{createTime,jdbcType=TIMESTAMP}
+                and create_time = #{createTime}
             </if>
             <if test="updateTime != null">
-                and update_time = #{updateTime,jdbcType=TIMESTAMP}
+                and update_time = #{updateTime}
             </if>
         </where>
-        <if test="orderByClause != null">
-            order by ${orderByClause}
-        </if>
+            order by date desc
     </select>
 
     <update id="updateById" parameterType="map">

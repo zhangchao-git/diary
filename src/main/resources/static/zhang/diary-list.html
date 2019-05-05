@@ -130,6 +130,7 @@
                 '<td data-field="10" data-key="1-0-10" style="text-align: left;" data-off="true" class="layui-table-col-special">' +
                 '<div class="layui-table-cell laytable-cell-1-0-10">' +
                 '<a class="layui-btn layui-btn-normal layui-btn-xs" onclick="view(this, ' + diary.id + ')">查看</a>' +
+                '<a class="layui-btn layui-btn-normal layui-btn-xs" onclick="viewMoney(this, ' + diary.id + ')">查看收支</a>' +
                 '</div>' +
                 '</td>' +
                 '</tr>';
@@ -143,6 +144,11 @@
     /*浏览*/
     function view(obj, id) {
         x_admin_show('查看', './diary-add.html?id=' + id, 800, 600)
+    }
+
+    /*浏览*/
+    function viewMoney(obj, id) {
+        x_admin_show('查看', './consume-add.html?id=' + id, 800, 600)
     }
 
 </script>

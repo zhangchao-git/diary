@@ -77,6 +77,7 @@ public class ConsumeServiceImpl implements ConsumeService {
     @Override
     public Consume queryById(Long id) {
         Consume consume = new Consume();
+        consume.setId(id);
         List<Consume> list = consumeDAO.selectByConsume(consume);
         if (list.size() > 0) {
             return list.get(0);

@@ -39,7 +39,7 @@ public class DiaryController {
     public Result queryList(HttpServletRequest request, DiaryDTO diaryDTO) {
         String id = request.getSession().getAttribute("id").toString();
         diaryDTO.setUserId(Long.parseLong(id));
-        List<Diary> list = diaryService.queryList(diaryDTO);
+        List<DiaryDTO> list = diaryService.queryList(diaryDTO);
         Result result = new Result();
         result.addObject("list", list);
         return result;

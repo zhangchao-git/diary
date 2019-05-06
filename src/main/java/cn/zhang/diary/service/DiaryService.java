@@ -19,7 +19,7 @@ public interface DiaryService {
      * @param diaryDTO
      * @return
      */
-    List<Diary> queryList(DiaryDTO diaryDTO);
+    List<DiaryDTO> queryList(DiaryDTO diaryDTO);
 
     /**
      * 根据ID查询列表
@@ -27,7 +27,7 @@ public interface DiaryService {
      * @param id
      * @return
      */
-    Diary queryById(Long id);
+    DiaryDTO queryById(Long id);
 
     /**
      * 增加日记

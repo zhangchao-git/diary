@@ -32,8 +32,8 @@ public class DiaryServiceImpl implements DiaryService {
      * @return
      */
     @Override
-    public List<Diary> queryList(DiaryDTO diaryDTO) {
-        List<Diary> list = diaryDAO.selectByDiary(diaryDTO);
+    public List<DiaryDTO> queryList(DiaryDTO diaryDTO) {
+        List<DiaryDTO> list = diaryDAO.selectByDiary(diaryDTO);
         return list;
     }
 
@@ -44,10 +44,10 @@ public class DiaryServiceImpl implements DiaryService {
      * @return
      */
     @Override
-    public Diary queryById(Long id) {
+    public DiaryDTO queryById(Long id) {
         DiaryDTO diary = new DiaryDTO();
         diary.setId(id);
-        List<Diary> list = diaryDAO.selectByDiary(diary);
+        List<DiaryDTO> list = diaryDAO.selectByDiary(diary);
         if (list.size() > 0) {
             return list.get(0);
         } else {

@@ -6,24 +6,41 @@
 <mapper namespace="cn.zhang.diary.dao.DiaryDAO">
 
     <resultMap id="BaseResultMap" type="cn.zhang.diary.model.Diary">
-        <id column="id" property="id" jdbcType="INTEGER" />
-        <result column="userId" property="userId" jdbcType="INTEGER" />
-        <result column="date" property="date" jdbcType="DATE" />
-        <result column="weather" property="weather" jdbcType="VARCHAR" />
-        <result column="mood" property="mood" jdbcType="VARCHAR" />
-        <result column="keywords" property="keywords" jdbcType="VARCHAR" />
-        <result column="longitude" property="longitude" jdbcType="DOUBLE" />
-        <result column="latitude" property="latitude" jdbcType="DOUBLE" />
-        <result column="address" property="address" jdbcType="VARCHAR" />
-        <result column="type" property="type" jdbcType="VARCHAR" />
-        <result column="content" property="content" jdbcType="VARCHAR" />
-        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="userId" property="userId" jdbcType="INTEGER"/>
+        <result column="date" property="date" jdbcType="DATE"/>
+        <result column="weather" property="weather" jdbcType="VARCHAR"/>
+        <result column="mood" property="mood" jdbcType="VARCHAR"/>
+        <result column="keywords" property="keywords" jdbcType="VARCHAR"/>
+        <result column="longitude" property="longitude" jdbcType="DOUBLE"/>
+        <result column="latitude" property="latitude" jdbcType="DOUBLE"/>
+        <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="type" property="type" jdbcType="VARCHAR"/>
+        <result column="content" property="content" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
     </resultMap>
 
+    <resultMap id="DTOResultMap" type="cn.zhang.diary.dto.DiaryDTO">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="userId" property="userId" jdbcType="INTEGER"/>
+        <result column="date" property="date" jdbcType="DATE"/>
+        <result column="weather" property="weather" jdbcType="VARCHAR"/>
+        <result column="mood" property="mood" jdbcType="VARCHAR"/>
+        <result column="keywords" property="keywords" jdbcType="VARCHAR"/>
+        <result column="longitude" property="longitude" jdbcType="DOUBLE"/>
+        <result column="latitude" property="latitude" jdbcType="DOUBLE"/>
+        <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="type" property="type" jdbcType="VARCHAR"/>
+        <result column="content" property="content" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="income" property="income" jdbcType="DOUBLE"/>
+        <result column="consume" property="consume" jdbcType="DOUBLE"/>
+    </resultMap>
     <sql id="Base_Column_List">
-    id, userId, date, weather, mood, keywords, longitude, latitude, address, type, content,
-    create_time, update_time
+    d.id, d.userId, d.date, d.weather, d.mood, d.keywords, d.longitude, d.latitude, d.address, d.type, d.content,
+    d.create_time, d.update_time
     </sql>
 
     <insert id="insert" parameterType="cn.zhang.diary.model.Diary" useGeneratedKeys="true" keyProperty="id">
@@ -117,52 +134,54 @@
         where id = #{id}
     </delete>
 
-    <select id="selectByDiary" resultMap="BaseResultMap" parameterType="cn.zhang.diary.dto.DiaryDTO">
+    <select id="selectByDiary" resultMap="DTOResultMap" parameterType="cn.zhang.diary.dto.DiaryDTO">
         select
-        <include refid="Base_Column_List"/>
-        from diary
+        <include refid="Base_Column_List"/>,
+        (select sum(c.amount) from consume c where c.type = 0 and c.diaryId = d.id) as income,
+        (select sum(c.amount) from consume c where c.type = 1 and c.diaryId = d.id) as consume
+        from diary d
         <where>
             <if test="id != null">
-                and id = #{id}
+                and d.id = #{id}
             </if>
             <if test="userId != null">
-                and userId = #{userId}
+                and d.userId = #{userId}
             </if>
             <if test="date != null">
-                and date = #{date}
+                and d.date = #{date}
             </if>
             <if test="weather != null">
-                and weather = #{weather}
+                and d.weather = #{weather}
             </if>
             <if test="mood != null">
-                and mood = #{mood}
+                and d.mood = #{mood}
             </if>
             <if test="keywords != null and keywords != ''">
-                and keywords = #{keywords}
+                and d.keywords = #{keywords}
             </if>
             <if test="longitude != null">
-                and longitude = #{longitude}
+                and d.longitude = #{longitude}
             </if>
             <if test="latitude != null">
-                and latitude = #{latitude}
+                and d.latitude = #{latitude}
             </if>
             <if test="address != null and address !=''">
-                and address = #{address}
+                and d.address = #{address}
             </if>
             <if test="type != null">
-                and type = #{type}
+                and d.type = #{type}
             </if>
             <if test="content != null">
-                and content = #{content}
+                and d.content = #{content}
             </if>
             <if test="createTime != null">
-                and create_time = #{createTime}
+                and d.create_time = #{createTime}
             </if>
             <if test="updateTime != null">
-                and update_time = #{updateTime}
+                and d.update_time = #{updateTime}
             </if>
         </where>
-            order by date desc
+        order by date desc
     </select>
 
     <update id="updateById" parameterType="cn.zhang.diary.model.Diary">

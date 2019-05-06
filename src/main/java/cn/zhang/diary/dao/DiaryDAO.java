@@ -14,7 +14,7 @@ public interface DiaryDAO {
 
     int deleteById(Long id);
 
-    List<Diary> selectByDiary(DiaryDTO diaryDTO);
+    List<DiaryDTO> selectByDiary(DiaryDTO diaryDTO);
 
     int updateById(Diary diary);
 }

@@ -1,7 +1,7 @@
 # spring配置
 spring:
   profiles:
-    active: test
+    active: dev
   servlet:
     multipart:
       max-file-size: 1024

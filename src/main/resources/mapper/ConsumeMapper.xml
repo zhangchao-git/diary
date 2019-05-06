@@ -3,6 +3,7 @@
 <mapper namespace="cn.zhang.diary.dao.ConsumeDAO">
     <resultMap id="BaseResultMap" type="cn.zhang.diary.model.Consume">
         <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="date" property="date" jdbcType="DATE" />
         <result column="diaryId" property="diaryId" jdbcType="INTEGER" />
         <result column="type" property="type" jdbcType="INTEGER" />
         <result column="path" property="path" jdbcType="VARCHAR" />
@@ -13,7 +14,7 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-    id, diaryId, type, path, amount, remark, create_time, update_time
+    id, date, diaryId, type, path, amount, remark, create_time, update_time
     </sql>
 
     <insert id="insert" parameterType="cn.zhang.diary.model.Consume" useGeneratedKeys="true" keyProperty="id">
@@ -21,6 +22,9 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
                 id,
+            </if>
+            <if test="date != null">
+                date,
             </if>
             <if test="diaryId != null">
                 diaryId,
@@ -47,6 +51,9 @@
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">
                 #{id,jdbcType=INTEGER},
+            </if>
+            <if test="date != null">
+                #{date,jdbcType=DATE},
             </if>
             <if test="diaryId != null">
                 #{diaryId,jdbcType=INTEGER},
@@ -78,9 +85,6 @@
 
     <select id="selectByConsume" resultMap="BaseResultMap" parameterType="cn.zhang.diary.model.Consume">
         select
-        <if test="distinct">
-            distinct
-        </if>
         <include refid="Base_Column_List"/>
         from consume
         <where>
@@ -109,9 +113,7 @@
                 and update_time = #{updateTime,jdbcType=TIMESTAMP}
             </if>
         </where>
-        <if test="orderByClause != null">
-            order by ${orderByClause}
-        </if>
+            order by create_time desc
     </select>
 
     <update id="updateById" parameterType="cn.zhang.diary.model.Diary">
@@ -119,6 +121,9 @@
         <set>
             <if test="diaryId != null">
                 diaryId = #{diaryId,jdbcType=INTEGER},
+            </if>
+            <if test="date != null">
+                date = #{date,jdbcType=DATE},
             </if>
             <if test="type != null">
                 type = #{type,jdbcType=INTEGER},

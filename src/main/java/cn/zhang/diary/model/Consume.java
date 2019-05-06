@@ -15,6 +15,12 @@ public class Consume {
      * 主键
      */
     private Long id;
+
+    /**
+     * 日期
+     */
+    private String date;
+
     /**
      * 记录ID
      */

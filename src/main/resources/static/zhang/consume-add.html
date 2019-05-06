@@ -25,6 +25,8 @@
 <div class="x-body">
     <form name="form" class="layui-form">
         <input id="id" name="id" hidden>
+        <input id="date" name="date" hidden>
+        <input id="diaryId" name="diaryId" hidden>
 
         <div class="layui-form-item">
             <label class="layui-form-label">收入/支出</label>
@@ -35,7 +37,9 @@
                     <option value="0">收入</option>
                 </select>
             </div>
+        </div>
 
+        <div class="layui-form-item">
             <label class="layui-form-label">路径</label>
             <div class="layui-input-inline">
                 <input type="text" class="layui-input" id="path" name="path">
@@ -52,9 +56,10 @@
         <div class="layui-form-item">
             <label class="layui-form-label">备注</label>
             <div class="layui-input-inline">
-            <textarea id="remark" name="remark" placeholder="" autofocus style="width: 100%"></textarea>
+                <textarea id="remark" name="remark" placeholder="" autofocus style="width: 100%"></textarea>
             </div>
         </div>
+
         <div class="layui-form-item" id="add">
             <button class="layui-btn" lay-filter="submit" lay-submit="">确定</button>
         </div>
@@ -68,7 +73,9 @@
      */
     layui.use(['form', 'layer'], function () {
         var id = getQueryString('id');
-
+        var diaryId = getQueryString('diaryId');
+        // $("#diaryId").val(diaryId);
+        $("#diaryId").val(diaryId);
         $ = layui.jquery;
         var form = layui.form
             , layer = layui.layer;
@@ -83,14 +90,13 @@
                 data: query,
                 success: function (result) {
                     if (result.code == 0) {
-                        $("#id").val(result.data.diary.id);
-                        $("#weather").val(result.data.diary.weather);
-                        $("#mood").val(result.data.diary.mood);
-                        $("#type").val(result.data.diary.type);
-                        $("#address").val(result.data.diary.address);
-                        $("#date").val(result.data.diary.date);
-                        $("#keywords").val(result.data.diary.keywords);
-                        $(".simditor-body").html(result.data.diary.content);
+                        $("#id").val(result.data.consume.id);
+                        $("#date").val(result.data.consume.date);
+                        $("#diaryId").val(result.data.consume.diaryId);
+                        $("#type").val(result.data.consume.type);
+                        $("#path").val(result.data.consume.path);
+                        $("#amount").val(result.data.consume.amount);
+                        $("#remark").val(result.data.consume.remark);
 
                         form.render(); //更新全部
                     } else {

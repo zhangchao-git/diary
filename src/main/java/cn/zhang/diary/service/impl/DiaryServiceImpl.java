@@ -38,6 +38,24 @@ public class DiaryServiceImpl implements DiaryService {
     }
 
     /**
+     * 根据ID查询列表
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public Diary queryById(Long id) {
+        DiaryDTO diary = new DiaryDTO();
+        diary.setId(id);
+        List<Diary> list = diaryDAO.selectByDiary(diary);
+        if (list.size() > 0) {
+            return list.get(0);
+        } else {
+            return null;
+        }
+    }
+
+    /**
      * 新增日记
      *
      * @param diary

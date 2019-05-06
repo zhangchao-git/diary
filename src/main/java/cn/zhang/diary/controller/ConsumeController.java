@@ -17,11 +17,14 @@ import java.util.List;
 @RequestMapping("/consume")
 public class ConsumeController {
 
+    /**
+     * 消费服务类
+     */
     @Resource
     private ConsumeService consumeService;
 
     /**
-     * 查询列表
+     * 查询消费列表
      *
      * @param consume
      * @return
@@ -35,14 +38,20 @@ public class ConsumeController {
         return result;
     }
 
+    /**
+     * 增加消费
+     *
+     * @param consume
+     * @return
+     */
     @RequestMapping("/add")
     @ResponseBody
     public Result add(Consume consume) {
         Result result = new Result();
         if (null != consume.getId()) {
-            consumeService.add(consume);
-        } else {
             consumeService.update(consume);
+        } else {
+            consumeService.add(consume);
         }
         return result;
     }
@@ -56,14 +65,8 @@ public class ConsumeController {
     @ResponseBody
     public Result queryById(Long id) {
         Result result = new Result();
-        Consume consume = new Consume();
-        consume.setId(id);
-        List<Consume> list = consumeService.queryList(consume);
-        if (list.size() > 0) {
-            result.addObject("list", list);
-        } else {
-            result.addObject("list", null);
-        }
+        Consume consume = consumeService.queryById(id);
+        result.addObject("consume", consume);
         return result;
     }
 }

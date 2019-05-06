@@ -44,7 +44,7 @@
             <button class="layui-btn" onclick="searchPageList()"><i class="layui-icon">&#xe615;</i></button>
 
             <button class="layui-btn" id="add"
-                    onclick="x_admin_show('添加人员','./diary-add.html?page=add&parentId=0',800,600)">
+                    onclick="x_admin_show('新增日记','./diary-add.html?page=add&parentId=0',800,500)">
                 <i class="layui-icon"></i>添加
             </button>
 
@@ -131,6 +131,7 @@
                 '<div class="layui-table-cell laytable-cell-1-0-10">' +
                 '<a class="layui-btn layui-btn-normal layui-btn-xs" onclick="view(this, ' + diary.id + ')">查看</a>' +
                 '<a class="layui-btn layui-btn-normal layui-btn-xs" onclick="addMoney(this, ' + diary.id + ')">新增消费</a>' +
+                '<a class="layui-btn layui-btn-normal layui-btn-xs" onclick="viewMoney(this, ' + diary.id + ')">查看消费</a>' +
                 '</div>' +
                 '</td>' +
                 '</tr>';
@@ -143,14 +144,18 @@
 
     /*浏览*/
     function view(obj, id) {
-        x_admin_show('查看', './diary-add.html?id=' + id, 800, 600)
+        x_admin_show('查看', './diary-add.html?id=' + id, 800, 500)
     }
 
     /*新增消费*/
     function addMoney(obj, id) {
-        x_admin_show('新增消费', './consume-add.html?diaryId=' + id, 800, 300)
+        x_admin_show('新增消费', './consume-add.html?diaryId=' + id, 460, 340)
     }
 
+    /*查看消费列表*/
+    function viewMoney(obj, id) {
+        x_admin_show('消费列表', './consume-list.html?diaryId=' + id, 800, 500)
+    }
 </script>
 </body>
 </html>

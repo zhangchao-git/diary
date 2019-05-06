@@ -74,16 +74,9 @@ public class DiaryController {
     @RequestMapping("/queryById")
     @ResponseBody
     public Result add(Long id) {
-        DiaryDTO diaryDTO = new DiaryDTO();
-        diaryDTO.setId(id);
-        List<Diary> list = diaryService.queryList(diaryDTO);
+        Diary diary = diaryService.queryById(id);
         Result result = new Result();
-        if (list.size() > 0) {
-            Diary diary = list.get(0);
-            result.addObject("diary", diary);
-        } else {
-            result.addObject("diary", null);
-        }
+        result.addObject("diary", diary);
         return result;
     }
 

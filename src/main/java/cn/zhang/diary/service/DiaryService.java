@@ -22,6 +22,14 @@ public interface DiaryService {
     List<Diary> queryList(DiaryDTO diaryDTO);
 
     /**
+     * 根据ID查询列表
+     *
+     * @param id
+     * @return
+     */
+    Diary queryById(Long id);
+
+    /**
      * 增加日记
      *
      * @param diary

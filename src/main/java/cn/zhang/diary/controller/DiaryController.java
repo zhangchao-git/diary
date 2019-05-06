@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -40,6 +41,29 @@ public class DiaryController {
         String id = request.getSession().getAttribute("id").toString();
         diaryDTO.setUserId(Long.parseLong(id));
         List<DiaryDTO> list = diaryService.queryList(diaryDTO);
+        //计算合计
+        double consume = 0;
+        double income = 0;
+        for (DiaryDTO dto : list) {
+            if (null != dto.getConsume()) {
+                consume += dto.getConsume();
+            }
+            if (null != dto.getIncome()) {
+                income += dto.getIncome();
+            }
+        }
+        DiaryDTO dto = new DiaryDTO();
+        dto.setDate("合计");
+        dto.setConsume(consume);
+        dto.setIncome(income);
+        dto.setWeather("");
+        dto.setMood("");
+        dto.setKeywords("");
+        dto.setAddress("");
+        dto.setType("");
+        dto.setCreateTime(new Date());
+        list.add(0, dto);
+
         Result result = new Result();
         result.addObject("list", list);
         return result;

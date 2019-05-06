@@ -180,6 +180,9 @@
             <if test="updateTime != null">
                 and d.update_time = #{updateTime}
             </if>
+            <if test="searchMonth != null">
+                and DATE_FORMAT(d.date,'%Y-%m') = #{searchMonth}
+            </if>
         </where>
         order by date desc
     </select>

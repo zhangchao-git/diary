@@ -22,5 +22,10 @@ public class DiaryDTO extends Diary {
      */
     Double income;
 
+    /**
+     * 查询日期
+     */
+    String searchMonth;
+
 
 }

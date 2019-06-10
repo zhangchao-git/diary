@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
+    <link rel="stylesheet" href="./css/font.css">
+    <link rel="stylesheet" href="./css/xadmin.css">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="./lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="./js/xadmin.js"></script>
+    <script type="text/javascript" src="./js/cookie.js"></script>
+    <style type="text/css">
+        body, html, #allmap {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            margin: 0;
+            font-family: "微软雅黑";
+        }
+    </style>
+    <script type="text/javascript"
+            src="http://api.map.baidu.com/api?v=2.0&ak=KNugzFNyuhS7NEYm9GouOklRV8mdpqk6"></script>
+    <title>地图展示</title>
+</head>
+<body>
+<div id="allmap"></div>
+</body>
+</html>
+<script type="text/javascript">
+    //地址详情
+    var addressInfo = {};
+    //id
+    var id = getQueryString('diaryId');
+
+    // 百度地图API功能
+    var map = new BMap.Map("allmap");    // 创建Map实例
+    map.centerAndZoom(new BMap.Point(116.404, 39.915), 13);  // 初始化地图,设置中心点坐标和地图级别
+    //添加地图类型控件
+    map.addControl(new BMap.MapTypeControl({
+        mapTypes: [
+            BMAP_NORMAL_MAP,
+            BMAP_HYBRID_MAP
+        ]
+    }));
+    map.setCurrentCity("北京");          // 设置地图显示的城市 此项是必须设置的
+    map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+
+    //定位到当前城市
+    function myFun(result) {
+        var cityName = result.name;
+        map.setCenter(cityName);
+    }
+
+    var myCity = new BMap.LocalCity();
+    myCity.get(myFun);
+
+    var geolocation = new BMap.Geolocation();
+
+    //单击获取点击的经纬度
+    map.addEventListener("click", function (e) {
+        map.clearOverlays();    //清除地图上所有覆盖物
+        var pt = e.point;//经纬度
+        map.addOverlay(new BMap.Marker(pt));    //添加标注
+
+        //调用getCurrentPosition函数
+        geolocation.getCurrentPosition(function () {
+            alert(pt.lng + "," + pt.lat);
+            $.ajax({
+                url: "https://api.map.baidu.com/geocoder/v2/?callback=renderReverse&location=" + pt.lat + "," + pt.lng + "&output=json&pois=1&ak=KNugzFNyuhS7NEYm9GouOklRV8mdpqk6",
+                type: "POST",
+                dataType: "jsonp",
+                success: function (res) {
+                    var address = res.result.formatted_address+'('+res.result.pois[0].addr+res.result.pois[0].name+')';
+
+                    addressInfo = {};
+                    addressInfo.address = address;
+                    addressInfo.longitude = pt.lng;
+                    addressInfo.latitude = pt.lat;
+
+                    //示范一个公告层
+                    layer.open({
+                        type: 1,
+                        title: false, //不显示标题栏
+                        closeBtn: false,
+                        area: '300px;',
+                        shade: 0.8,
+                        id: 'LAY_layuipro', //设定一个id，防止重复弹出
+                        btn: ['确认', '取消'],
+                        btnAlign: 'c',
+                        moveType: 1, //拖拽模式，0或者1
+                        content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">地址:' + address + '</div>',
+                        success: function (layero) {
+                            var btn = layero.find('.layui-layer-btn');
+                            btn.find('.layui-layer-btn0').attr({
+                                href: 'javascript:updateAddress()',
+                                target: '_blank'
+                            });
+                        }
+                    });
+
+                },
+                error: function (e) {
+                    console.log(e);
+                    alert("错误");
+                }
+            });
+        });
+    });
+
+    /**
+     * 更新地址
+     */
+    function updateAddress() {
+        addressInfo.id = id;
+        if (id != null) {
+            $.ajax({
+                url: '/diary/add',
+                type: 'POST',
+                data: addressInfo,
+                success: function (result) {
+                    if (result.code == 0) {
+                        //发异步，把数据提交给php
+                        layer.alert("增加成功", {icon: 6}, function () {
+                            //关闭当前frame
+                            x_admin_close();
+                            // 可以对父窗口进行刷新
+                            x_admin_father_reload();
+                        });
+                    } else {
+                        layer.msg(result.message);
+                    }
+                }
+            });
+        }
+    }
+
+    //查询url中的参数
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]);
+        return null;
+    }
+
+</script>

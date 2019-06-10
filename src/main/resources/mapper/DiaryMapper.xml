@@ -190,9 +190,6 @@
     <update id="updateById" parameterType="cn.zhang.diary.model.Diary">
         update diary
         <set>
-            <if test="id != null">
-                id = #{id,jdbcType=INTEGER},
-            </if>
             <if test="userId != null">
                 userId = #{userId,jdbcType=INTEGER},
             </if>

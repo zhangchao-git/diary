@@ -161,7 +161,8 @@
                 trStr +=
                     '<a class="layui-btn layui-btn-normal layui-btn-xs" onclick="view(this, ' + diary.id + ')">查看</a>' +
                     '<a class="layui-btn layui-btn-normal layui-btn-xs" onclick="viewMoney(this, ' + diary.id + ')">查看消费</a>' +
-                    '<a class="layui-btn layui-btn-normal layui-btn-xs" onclick="addMoney(this, ' + diary.id + ')">新增消费</a>';
+                    '<a class="layui-btn layui-btn-normal layui-btn-xs" onclick="addMoney(this, ' + diary.id + ')">新增消费</a>' +
+                    '<a class="layui-btn layui-btn-normal layui-btn-xs" onclick="addAddress(this, ' + diary.id + ')">设置地点</a>';
 
             }
             trStr +=
@@ -188,6 +189,11 @@
     /*查看消费列表*/
     function viewMoney(obj, id) {
         x_admin_show('消费列表', './consume-list.html?diaryId=' + id, 800, 500)
+    }
+
+    /*设置地点*/
+    function addAddress(obj, id) {
+        x_admin_show('地图', './diary-map.html?diaryId=' + id, 800, 500)
     }
 </script>
 </body>

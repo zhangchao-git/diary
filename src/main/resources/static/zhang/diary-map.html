@@ -64,7 +64,6 @@
 
         //调用getCurrentPosition函数
         geolocation.getCurrentPosition(function () {
-            alert(pt.lng + "," + pt.lat);
             $.ajax({
                 url: "https://api.map.baidu.com/geocoder/v2/?callback=renderReverse&location=" + pt.lat + "," + pt.lng + "&output=json&pois=1&ak=KNugzFNyuhS7NEYm9GouOklRV8mdpqk6",
                 type: "POST",

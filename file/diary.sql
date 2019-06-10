@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50643
 File Encoding         : 65001
 
-Date: 2019-05-06 14:39:50
+Date: 2019-06-10 14:20:33
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -32,11 +32,7 @@ CREATE TABLE `consume` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `id` (`id`),
   KEY `diaryId` (`diaryId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of consume
--- ----------------------------
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for diary
@@ -51,18 +47,14 @@ CREATE TABLE `diary` (
   `keywords` varchar(50) DEFAULT NULL COMMENT '关键词',
   `longitude` double(9,6) DEFAULT NULL COMMENT '经度',
   `latitude` double(9,6) DEFAULT NULL COMMENT '纬度',
-  `address` varchar(50) DEFAULT NULL COMMENT '地址',
+  `address` varchar(100) DEFAULT NULL COMMENT '地址',
   `type` varchar(255) DEFAULT NULL COMMENT '类型',
   `content` varchar(3000) NOT NULL COMMENT '内容',
   `create_time` datetime NOT NULL COMMENT '创建时间',
   `update_time` datetime NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`),
   KEY `id` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of diary
--- ----------------------------
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for platform_user
@@ -81,8 +73,3 @@ CREATE TABLE `platform_user` (
   `remark` varchar(255) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of platform_user
--- ----------------------------
-INSERT INTO `platform_user` VALUES ('1', '管理员', 'admin', 'd5a7aced9fd35df54a22a6db1e4fb514', '0', '0', '2019-05-06 05:50:09', '2019-04-17 09:56:12', '2019-05-06 05:50:09', null);
